@@ -7,3 +7,18 @@
   text-align: center;
   color: white;
 }
+.search-input {
+  width: 550px;        /* increase width */
+  height: 35px;        /* increase height */
+  padding: 10px 15px;  /* inside spacing */
+  font-size: 16px;     /* bigger text */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}

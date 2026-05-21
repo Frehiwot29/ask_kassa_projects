@@ -92,9 +92,9 @@ const EmployeeComponent = () => {
                         <form action="">
 
                             <div className='form-group mb-2'>
-                                <label className='form-lable'>E F Name</label>
+                                <label className='form-lable'>First Name</label>
                                 <input type="text"
-                                    placeholder='Enter F Name'
+                                    placeholder='Enter First Name'
                                     name='firstNmae'
                                     value={firstName}
                                     className={`form-control ${error.firstName ? 'is-invalid' : ''}`}
@@ -104,9 +104,9 @@ const EmployeeComponent = () => {
                             </div>
 
                             <div className='form-group mb-2'>
-                                <label className='form-lable'>E F Name</label>
+                                <label className='form-lable'>Last Name</label>
                                 <input type="text"
-                                    placeholder='Enter L Name'
+                                    placeholder='Enter Last Name'
                                     name='lastName'
                                     value={lastName}
                                     className={`form-control ${error.lastName ? 'is-invalid' : ''}`}
