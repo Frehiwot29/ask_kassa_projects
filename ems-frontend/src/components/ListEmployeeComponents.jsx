@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { deeteEmployee, listEmployees, getEmployee } from '../service/EmployeeService'
+import { deeteEmployee, listEmployees, getEmployee, searchEmployees } from '../service/EmployeeService'
 import { useNavigate } from 'react-router-dom'
 
 const ListEmployeeComponents = () => {
     const [employees, setEmployees] = useState([]);
-    const [searchId, setSearchId] = useState("")
+    const [searchTerm, setSearchTerm] = useState("")
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,24 +35,32 @@ const ListEmployeeComponents = () => {
         })
     }
 
-//    function searchEmployee (searchId){
-//         //  const response= await fetch( `http://localhost:8080/api/employees/${searchId}`);
-//         //  const data=await response.json();
-//         getEmployee(searchId).then((response) => {
-//             console.log(response.data);
-//              setEmployees(response.data);
-//         }).catch(error => {
-//             console.error(error);
-//         })
-//          navigate(`/add-employee/${searchId}`)
-//     }
+    function searchEmployee() {
+        if (searchTerm) {
+            searchEmployees(searchTerm).then((response) => {
+                setEmployees(response.data);
+            }).catch(error => {
+                console.error("Search failed", error);
+                setEmployees([]);
+            })
+        } else {
+            getAllEmployee();
+        }
+    }
 
     return (
         <div className='container'>
             <h1 className='text-center'><strong><i>List Of Employee</i></strong></h1>
-            <button className='btn btn-primary mb-2' value={searchId} onClick={addNewEmployee}>Add Employee</button>
-            <input type='number' className='search-input ' placeholder='Search Employee By Id' onChange={(e) => setSearchId(e.target.value)}  style={{ marginLeft: '10px' }}/>
-            <button className='btn btn-success'  style={{ marginLeft: '10px' }}>Search</button>
+            <button className='btn btn-primary mb-2' onClick={addNewEmployee}>Add Employee</button>
+            <input 
+                type='text' 
+                className='search-input ' 
+                placeholder='Search by name...' 
+                value={searchTerm} 
+                onChange={(e) => setSearchTerm(e.target.value)} 
+                onKeyDown={(e) => e.key === 'Enter' && searchEmployee()}
+                style={{ marginLeft: '10px' }}/>
+            <button className='btn btn-success' onClick={searchEmployee} style={{ marginLeft: '10px' }}>Search</button>
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
