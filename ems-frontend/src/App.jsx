@@ -4,25 +4,39 @@ import EmployeeComponent from './components/EmployeeComponent';
 import FooterCompnents from './components/FooterCompnents'
 import HeaderComponent from './components/HeaderComponent'
 import ListEmployeeComponents from './components/ListEmployeeComponents'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import LoginComponent from './components/LoginComponent'
+import RegisterComponent from './components/RegisterComponent'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { isUserLoggedIn } from './service/AuthService';
 
 function App() {
+
+  function AuthenticatedRoute({children}){
+    const isAuth = isUserLoggedIn();
+    if(isAuth) return children;
+    return <Navigate to="/" />
+  }
 
   return (
     <>
       <BrowserRouter>
         <HeaderComponent />
         <Routes>
-          {/* //http://localhost:3000 */}
-          <Route path="/" element={<ListEmployeeComponents />}></Route>
-          {/* //http://localhost:3000/employees */}
-          <Route path="/employees" element={<ListEmployeeComponents />}></Route>
-          {/* //http://localhost:3000/add-employee */}
-          <Route path="/add-employee" element={<EmployeeComponent />}></Route>
-          {/* //http://localhost:3000/edit-employee */}
-              <Route path="/add-employee/:id" element={<EmployeeComponent />}></Route>
-          {/* //http://localhost:3000/edit-employee */}
-          <Route path="/edit-employee/:id" element={<EmployeeComponent />}></Route>
+          <Route path="/" element={<LoginComponent />}></Route>
+          <Route path="/login" element={<LoginComponent />}></Route>
+          <Route path="/register" element={<RegisterComponent />}></Route>
+          
+          <Route path="/employees" element={
+            <AuthenticatedRoute><ListEmployeeComponents /></AuthenticatedRoute>
+          }></Route>
+
+          <Route path="/add-employee" element={
+            <AuthenticatedRoute><EmployeeComponent /></AuthenticatedRoute>
+          }></Route>
+
+          <Route path="/edit-employee/:id" element={
+            <AuthenticatedRoute><EmployeeComponent /></AuthenticatedRoute>
+          }></Route>
         </Routes>
         <FooterCompnents />
       </BrowserRouter>
