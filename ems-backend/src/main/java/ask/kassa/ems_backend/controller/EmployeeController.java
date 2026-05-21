@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ask.kassa.ems_backend.dto.EmployeeDto;
@@ -62,5 +63,11 @@ public class EmployeeController {
         return ResponseEntity.ok("Employee deleted successfully");
       }
 
+      // Build Search Employee REST API
+      @GetMapping("/search")
+      public ResponseEntity<List<EmployeeDto>> searchEmployees(@RequestParam("query") String query){
+          List<EmployeeDto> employees = employeeService.searchEmployees(query);
+          return ResponseEntity.ok(employees);
+      }
 
 }
