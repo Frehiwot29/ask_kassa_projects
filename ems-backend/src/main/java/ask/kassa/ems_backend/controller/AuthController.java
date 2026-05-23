@@ -1,5 +1,6 @@
 package ask.kassa.ems_backend.controller;
 
+import ask.kassa.ems_backend.dto.AuthResponseDto;
 import ask.kassa.ems_backend.dto.LoginDto;
 import ask.kassa.ems_backend.dto.RegisterDto;
 import ask.kassa.ems_backend.service.AuthService;
@@ -17,8 +18,8 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
-        String response = authService.login(loginDto);
+    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto){
+        AuthResponseDto response = authService.login(loginDto);
         return ResponseEntity.ok(response);
     }
 

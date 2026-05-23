@@ -1,5 +1,6 @@
 package ask.kassa.ems_backend.service.Impl;
 
+import ask.kassa.ems_backend.dto.AuthResponseDto;
 import ask.kassa.ems_backend.dto.LoginDto;
 import ask.kassa.ems_backend.dto.RegisterDto;
 import ask.kassa.ems_backend.entity.User;
@@ -15,7 +16,7 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
 
     @Override
-    public String login(LoginDto loginDto) {
+    public AuthResponseDto login(LoginDto loginDto) {
         // Simple logic for now. In a real app, use Spring Security AuthenticationManager
         User user = userRepository.findByUsername(loginDto.getUsernameOrEmail())
                 .or(() -> userRepository.findByEmail(loginDto.getUsernameOrEmail()))
@@ -24,17 +25,19 @@ public class AuthServiceImpl implements AuthService {
         if(!user.getPassword().equals(loginDto.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
-        return "Logged in successfully!.";
+        return new AuthResponseDto(user.getUsername(), user.getRole());
     }
 
     @Override
     public String register(RegisterDto registerDto) {
         if(userRepository.existsByUsername(registerDto.getUsername())) return "Username taken";
+        if(userRepository.existsByEmail(registerDto.getEmail())) return "Email already exists";
         
         User user = new User();
         user.setUsername(registerDto.getUsername());
         user.setEmail(registerDto.getEmail());
         user.setPassword(registerDto.getPassword()); // Note: Always hash passwords in production!
+        user.setRole(registerDto.getRole());
         userRepository.save(user);
         return "User registered successfully!.";
     }
