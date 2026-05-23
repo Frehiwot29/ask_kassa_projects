@@ -10,8 +10,7 @@ const LoginComponent = () => {
     function handleLoginForm(e){
         e.preventDefault();
         loginAPICall(username, password).then((response) => {
-            console.log(response.data);
-            saveLoggedInUser(username);
+            saveLoggedInUser(response.data.username, response.data.role);
             navigate("/dashboard")
             window.location.reload(false);
         }).catch(error => {
@@ -25,8 +24,8 @@ const LoginComponent = () => {
             <div className='row'>
                 <div className='col-md-6 offset-md-3'>
                     <div className='card'>
-                        <div className='card-header'>
-                            <h2 className='text-center'> Login Form </h2>
+                        <div className='card-header bg-primary'>
+                            <h2 className='text-center text-white'> Login Form </h2>
                         </div>
                         <div className='card-body'>
                             <form>

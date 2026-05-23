@@ -6,11 +6,12 @@ const RegisterComponent = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [role, setRole] = useState('USER')
     const navigate = useNavigate()
 
     function handleRegistrationForm(e){
         e.preventDefault();
-        const register = {username, email, password}
+        const register = {username, email, password, role}
         registerAPICall(register).then((response) => {
             console.log(response.data);
             navigate('/login')
@@ -25,8 +26,8 @@ const RegisterComponent = () => {
             <div className='row'>
                 <div className='col-md-6 offset-md-3'>
                     <div className='card'>
-                        <div className='card-header'>
-                            <h2 className='text-center'> User Registration Form </h2>
+                        <div className='card-header bg-primary'>
+                            <h2 className='text-center text-white'> User Registration Form </h2>
                         </div>
                         <div className='card-body'>
                             <form>
@@ -69,6 +70,21 @@ const RegisterComponent = () => {
                                         />
                                     </div>
                                 </div>
+                                <div className='row mb-3'>
+                                    <label className='col-md-3 control-label'> Role </label>
+                                    <div className='col-md-9'>
+                                        <select
+                                            className='form-control'
+                                            value={role}
+                                            onChange={(e) => setRole(e.target.value)}
+                                        >
+                                            <option value="USER">User</option>
+                                            <option value="ADMIN">Admin</option>
+                                            <option value="OFFICER">Officer</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div className='form-group mb-3'>
                                     <button className='btn btn-primary' onClick={ (e) => handleRegistrationForm(e)}>Submit</button>
                                 </div>

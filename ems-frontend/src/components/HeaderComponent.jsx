@@ -15,23 +15,23 @@ const HeaderComponent = () => {
   return (
     <div>
          <header>
-                <nav className="navbar navbar-expand-md navbar-light bg-info">
-                    <a className='navbar-brand text-black' href='https://www.linkedin.com/in/frehiwot-asfaw/'>Employee Management System</a>
+                <nav className="navbar navbar-expand-md navbar-light" style={{backgroundColor: '#001a33'}}>
+                    <a className='navbar-brand text-white' href='https://www.linkedin.com/in/frehiwot-asfaw/'>Employee Management System</a>
                     <div className='collapse navbar-collapse'>
                         <ul className='navbar-nav'>
                             { isAuth && 
                                 <li className='nav-item'>
-                                    <NavLink to="/dashboard" className="nav-link text-black">Dashboard</NavLink>
+                                    <NavLink to="/dashboard" className="nav-link text-white">Dashboard</NavLink>
                                 </li>
                             }
                             { isAuth && 
                                 <li className='nav-item'>
-                                    <NavLink to="/employees" className="nav-link text-black">Employees</NavLink>
+                                    <NavLink to="/employees" className="nav-link text-white">Employees</NavLink>
                                 </li>
                             }
                             { isAuth && 
                                 <li className='nav-item'>
-                                    <NavLink to="/query" className="nav-link text-black">Query</NavLink>
+                                    <NavLink to="/query" className="nav-link text-white">Query</NavLink>
                                 </li>
                             }
                         </ul>
@@ -39,17 +39,17 @@ const HeaderComponent = () => {
                     <ul className='navbar-nav'>
                         { !isAuth &&
                             <li className='nav-item'>
-                                <NavLink to="/register" className="nav-link text-black">Register</NavLink>
+                                <NavLink to="/register" className="nav-link text-white">Signup</NavLink>
                             </li>
                         }
                         { !isAuth &&
                             <li className='nav-item'>
-                                <NavLink to="/login" className="nav-link text-black">Login</NavLink>
+                                <NavLink to="/login" className="nav-link text-white">Login</NavLink>
                             </li>
                         }
                         { isAuth &&
                             <li className='nav-item'>
-                                <NavLink to="/login" className="nav-link text-black" onClick={handleLogout}>Logout</NavLink>
+                                <NavLink to="/login" className="nav-link text-white" onClick={handleLogout}>Logout</NavLink>
                             </li>
                         }
                     </ul>

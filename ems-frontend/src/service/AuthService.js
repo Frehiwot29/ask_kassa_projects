@@ -7,7 +7,10 @@ export const registerAPICall = (registerObj) => axios.post(AUTH_REST_API_BASE_UR
 export const loginAPICall = (usernameOrEmail, password) => 
     axios.post(AUTH_REST_API_BASE_URL + '/login', { usernameOrEmail, password });
 
-export const saveLoggedInUser = (username) => sessionStorage.setItem("authenticatedUser", username);
+export const saveLoggedInUser = (username, role) => {
+    sessionStorage.setItem("authenticatedUser", username);
+    sessionStorage.setItem("role", role);
+}
 
 export const isUserLoggedIn = () => {
     const username = sessionStorage.getItem("authenticatedUser");
@@ -15,6 +18,8 @@ export const isUserLoggedIn = () => {
 }
 
 export const getLoggedInUser = () => sessionStorage.getItem("authenticatedUser");
+
+export const getLoggedInUserRole = () => sessionStorage.getItem("role");
 
 export const logout = () => {
     sessionStorage.clear();
