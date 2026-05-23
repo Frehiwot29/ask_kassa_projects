@@ -5,16 +5,22 @@ import { useNavigate } from 'react-router-dom';
 const LoginComponent = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
     const navigate = useNavigate();
 
     function handleLoginForm(e){
         e.preventDefault();
+        setError('');
         loginAPICall(username, password).then((response) => {
             saveLoggedInUser(response.data.username, response.data.role);
-            navigate("/dashboard")
-            window.location.reload(false);
-        }).catch(error => {
-            console.error(error);
+            if (response.data.role === 'OFFICER') {
+                navigate("/legal-query");
+            } else {
+                navigate("/dashboard");
+            }
+        }).catch(err => {
+            console.error(err);
+            setError('Invalid Username or Password');
         })
     }
 
@@ -29,6 +35,8 @@ const LoginComponent = () => {
                         </div>
                         <div className='card-body'>
                             <form>
+                                { error && <div className='alert alert-danger'>{error}</div> }
+
                                 <div className='row mb-3'>
                                     <label className='col-md-3 control-label'> Username or Email </label>
                                     <div className='col-md-9'>

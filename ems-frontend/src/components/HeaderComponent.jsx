@@ -1,11 +1,12 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { isUserLoggedIn, logout } from '../service/AuthService'
+import { isUserLoggedIn, logout, getLoggedInUserRole } from '../service/AuthService'
 
 const HeaderComponent = () => {
 
   const isAuth = isUserLoggedIn();
   const navigate = useNavigate();
+  const role = getLoggedInUserRole();
 
   function handleLogout(){
     logout();
@@ -31,7 +32,11 @@ const HeaderComponent = () => {
                             }
                             { isAuth && 
                                 <li className='nav-item'>
-                                    <NavLink to="/query" className="nav-link text-white">Query</NavLink>
+                                    <NavLink 
+                                        to={role === 'OFFICER' ? "/legal-query" : "/query"} 
+                                        className="nav-link text-white">
+                                        {role === 'OFFICER' ? "Verification" : "Query"}
+                                    </NavLink>
                                 </li>
                             }
                         </ul>

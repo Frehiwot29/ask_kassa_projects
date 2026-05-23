@@ -8,6 +8,8 @@ import LoginComponent from './components/LoginComponent'
 import RegisterComponent from './components/RegisterComponent'
 import QueryComponent from './components/QueryComponent'
 import DashboardComponent from './components/DashboardComponent'
+import LegalQueryComponent from './components/LegalQueryComponent'
+import SecondaryInspectionComponent from './components/SecondaryInspectionComponent'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { isUserLoggedIn } from './service/AuthService';
 
@@ -31,7 +33,7 @@ function App() {
           <Route path="/dashboard" element={
             <AuthenticatedRoute><DashboardComponent /></AuthenticatedRoute>
           }></Route>
-
+          
           <Route path="/employees" element={
             <AuthenticatedRoute><ListEmployeeComponents /></AuthenticatedRoute>
           }></Route>
@@ -46,6 +48,14 @@ function App() {
 
           <Route path="/query" element={
             <AuthenticatedRoute><QueryComponent /></AuthenticatedRoute>
+          }></Route>
+
+          <Route path="/legal-query" element={
+            <AuthenticatedRoute><LegalQueryComponent /></AuthenticatedRoute>
+          }></Route>
+
+          <Route path="/secondary-inspection" element={
+            <AuthenticatedRoute><SecondaryInspectionComponent /></AuthenticatedRoute>
           }></Route>
         </Routes>
         <FooterCompnents />
