@@ -6,6 +6,8 @@ import HeaderComponent from './components/HeaderComponent'
 import ListEmployeeComponents from './components/ListEmployeeComponents'
 import LoginComponent from './components/LoginComponent'
 import RegisterComponent from './components/RegisterComponent'
+import QueryComponent from './components/QueryComponent'
+import DashboardComponent from './components/DashboardComponent'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { isUserLoggedIn } from './service/AuthService';
 
@@ -26,6 +28,10 @@ function App() {
           <Route path="/login" element={<LoginComponent />}></Route>
           <Route path="/register" element={<RegisterComponent />}></Route>
           
+          <Route path="/dashboard" element={
+            <AuthenticatedRoute><DashboardComponent /></AuthenticatedRoute>
+          }></Route>
+
           <Route path="/employees" element={
             <AuthenticatedRoute><ListEmployeeComponents /></AuthenticatedRoute>
           }></Route>
@@ -36,6 +42,10 @@ function App() {
 
           <Route path="/edit-employee/:id" element={
             <AuthenticatedRoute><EmployeeComponent /></AuthenticatedRoute>
+          }></Route>
+
+          <Route path="/query" element={
+            <AuthenticatedRoute><QueryComponent /></AuthenticatedRoute>
           }></Route>
         </Routes>
         <FooterCompnents />

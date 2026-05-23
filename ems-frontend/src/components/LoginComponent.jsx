@@ -12,7 +12,7 @@ const LoginComponent = () => {
         loginAPICall(username, password).then((response) => {
             console.log(response.data);
             saveLoggedInUser(username);
-            navigate("/employees")
+            navigate("/dashboard")
             window.location.reload(false);
         }).catch(error => {
             console.error(error);

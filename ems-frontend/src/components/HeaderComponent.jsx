@@ -21,7 +21,17 @@ const HeaderComponent = () => {
                         <ul className='navbar-nav'>
                             { isAuth && 
                                 <li className='nav-item'>
+                                    <NavLink to="/dashboard" className="nav-link text-black">Dashboard</NavLink>
+                                </li>
+                            }
+                            { isAuth && 
+                                <li className='nav-item'>
                                     <NavLink to="/employees" className="nav-link text-black">Employees</NavLink>
+                                </li>
+                            }
+                            { isAuth && 
+                                <li className='nav-item'>
+                                    <NavLink to="/query" className="nav-link text-black">Query</NavLink>
                                 </li>
                             }
                         </ul>
