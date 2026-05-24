@@ -119,11 +119,15 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public String saveAuditLog(String capturedImage) {
+        if (capturedImage == null || capturedImage.trim().isEmpty()) {
+            throw new RuntimeException("Invalid capture: Image data is missing.");
+        }
+
         AuditRecord record = new AuditRecord();
         record.setCapturedImage(capturedImage);
         record.setTimestamp(LocalDateTime.now());
         auditRecordRepository.save(record);
-        return "Audit log saved successfully.";
+        return "Audit log recorded in database at " + record.getTimestamp();
     }
 
     private PersonDto mapToDto(Person person) {
