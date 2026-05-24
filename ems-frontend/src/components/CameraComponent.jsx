@@ -11,13 +11,6 @@ const CameraComponent = ({ onCapture, onCancel }) => {
         setCamError("Camera access denied or not found. Please check browser permissions.");
     }, []);
 
-    const handleUserMedia = useCallback((stream) => {
-        console.log("Camera stream acquired successfully:", stream);
-    }, []);
-
-    const zoomIn = () => setZoom(prev => Math.min(prev + 0.2, 3)); // Max zoom 3x
-    const zoomOut = () => setZoom(prev => Math.max(prev - 0.2, 1)); // Min zoom 1x
-
     const capture = useCallback(() => {
         if (!webcamRef.current) {
             console.error("Webcam reference not found");
@@ -49,6 +42,13 @@ const CameraComponent = ({ onCapture, onCancel }) => {
         console.log("Captured Image successfully at zoom level:", zoom);
         onCapture(imageSrc);
     }, [webcamRef, onCapture, zoom]);
+
+    const handleUserMedia = useCallback((stream) => {
+        console.log("Camera stream acquired successfully:", stream);
+    }, []);
+
+    const zoomIn = () => setZoom(prev => Math.min(prev + 0.2, 3)); // Max zoom 3x
+    const zoomOut = () => setZoom(prev => Math.max(prev - 0.2, 1)); // Min zoom 1x
 
     return (
         <div className='text-center'>

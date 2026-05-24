@@ -16,7 +16,7 @@ const HeaderComponent = () => {
   return (
     <div>
          <header>
-                <nav className="navbar navbar-expand-md navbar-light" style={{backgroundColor: '#001a33'}}>
+                <nav className="navbar navbar-expand-md navbar-light" style={{backgroundColor: '#003233'}}>
                     <a className='navbar-brand text-white' href='https://www.linkedin.com/in/frehiwot-asfaw/'>Employee Management System</a>
                     <div className='collapse navbar-collapse'>
                         <ul className='navbar-nav'>
