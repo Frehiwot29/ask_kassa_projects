@@ -12,15 +12,24 @@ const LoginComponent = () => {
         e.preventDefault();
         setError('');
         loginAPICall(username, password).then((response) => {
-            saveLoggedInUser(response.data.username, response.data.role);
-            if (response.data.role === 'OFFICER') {
+            // Ensure role comparison is case-insensitive
+            const role = response.data.role ? response.data.role.toUpperCase() : '';
+            saveLoggedInUser(response.data.username, role);
+            if (role === 'OFFICER') {
                 navigate("/legal-query");
-            } else {
+            } else if (role === 'ADMIN' || role === 'USER' || role === 'CLIENT') {
                 navigate("/dashboard");
+            }else {
+                setError('Unknown user role');
             }
         }).catch(err => {
             console.error(err);
-            setError('Invalid Username or Password');
+            // Display the specific error message from the backend (e.g. "User not found")
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            } else {
+                setError('Invalid Username or Password');
+            }
         })
     }
 
@@ -74,4 +83,4 @@ const LoginComponent = () => {
         </div>
     )
 }
-export default LoginComponent
+export default LoginComponent;

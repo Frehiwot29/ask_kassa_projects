@@ -15,9 +15,9 @@ import { isUserLoggedIn } from './service/AuthService';
 
 function App() {
 
-  function AuthenticatedRoute({children}){
+  function AuthenticatedRoute({ children }) {
     const isAuth = isUserLoggedIn();
-    if(isAuth) return children;
+    if (isAuth) return children;
     return <Navigate to="/" />
   }
 
@@ -29,11 +29,11 @@ function App() {
           <Route path="/" element={<LoginComponent />}></Route>
           <Route path="/login" element={<LoginComponent />}></Route>
           <Route path="/register" element={<RegisterComponent />}></Route>
-          
+
           <Route path="/dashboard" element={
             <AuthenticatedRoute><DashboardComponent /></AuthenticatedRoute>
           }></Route>
-          
+
           <Route path="/employees" element={
             <AuthenticatedRoute><ListEmployeeComponents /></AuthenticatedRoute>
           }></Route>

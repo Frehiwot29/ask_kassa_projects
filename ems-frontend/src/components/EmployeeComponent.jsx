@@ -28,7 +28,6 @@ const EmployeeComponent = () => {
     }, [])
     function saveOrUpdateEmployee(e) {
         e.preventDefault();
-
         if (validateForm()) {
             const employee = { firstName, lastName, email }
             console.log(employee);
@@ -45,7 +44,6 @@ const EmployeeComponent = () => {
                     navigate('/employees')
                 })
             }
-
         }
     }
 

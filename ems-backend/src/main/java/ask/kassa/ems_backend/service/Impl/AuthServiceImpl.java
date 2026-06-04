@@ -18,13 +18,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponseDto login(LoginDto loginDto) {
         // Simple logic for now. In a real app, use Spring Security AuthenticationManager
+        String identifier = loginDto.getUsernameOrEmail();
         User user = userRepository.findByUsername(loginDto.getUsernameOrEmail())
                 .or(() -> userRepository.findByEmail(loginDto.getUsernameOrEmail()))
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Auth Failed: User not found with: " + identifier));
 
         if(!user.getPassword().equals(loginDto.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new RuntimeException("Auth Failed: Password mismatch for user: " + identifier);
         }
+        
         return new AuthResponseDto(user.getUsername(), user.getRole());
     }
 
